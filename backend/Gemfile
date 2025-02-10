@@ -31,6 +31,11 @@ group :development, :test do
   # debug tool
   gem 'pry-byebug'
   gem 'pry-rails'
+
+  # Rspec
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
