@@ -22,7 +22,10 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: workout_test
+  database: workout
+  username: workout
+  password: password
+  host: db
 
 
 # SQLite3 write its data on the local filesystem, as such it requires
