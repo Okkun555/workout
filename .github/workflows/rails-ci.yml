@@ -35,6 +35,20 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
+    services:
+      postgres:
+        image: postgres:16.2
+        env:
+          POSTGRES_USER: workout
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: workout_test
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - name: checkout code
         uses: actions/checkout@v3
@@ -49,6 +63,12 @@ jobs:
         run: |
           gem install bundler
           bundle install
+
+      - name: Database create and migrate
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
 
       - name: Run rspec
         run: bundle exec rspec
