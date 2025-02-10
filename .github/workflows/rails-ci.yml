@@ -1,7 +1,10 @@
 name: Rails CI
 
 on:
-  push:
+  pull_request:
+    branches:
+      - staging
+      - 'feature/**'
 
 jobs:
   robocop:
